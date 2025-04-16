@@ -37,7 +37,11 @@ class Auxhelpers
     {
         error_log("[" . date("Y-m-d H:i:s") . "] " . __FUNCTION__ . ": " . $message, 3, "error.log");
     }
+<<<<<<< HEAD
     /* public function FieldsValue($FIELD_ID, string $FIELD_NAME, $entity)
+=======
+    public function FieldsValue($FIELD_ID, string $FIELD_NAME, $entity)
+>>>>>>> 90154bf22ff8c0ae52b03e1fc77d4d1678ab9e12
     {
 
         $this->Bitrix = new ContactBitrix();
@@ -47,7 +51,11 @@ class Auxhelpers
                 return $data["VALUE"];
             }
         }
+<<<<<<< HEAD
     } */
+=======
+    }
+>>>>>>> 90154bf22ff8c0ae52b03e1fc77d4d1678ab9e12
     public function extractValue($string)
     {
         $valor = explode('|', $string);

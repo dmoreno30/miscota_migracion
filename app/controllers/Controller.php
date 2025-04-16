@@ -9,7 +9,13 @@ namespace App\Controllers;
  */
 class Controller extends \Leaf\Controller
 {
+<<<<<<< HEAD
    public function index(){
     echo "hola";
    }
+=======
+    // You can define methods here that would be used
+    // throughout your controller classes
+    // public function someMethod() {}
+>>>>>>> 90154bf22ff8c0ae52b03e1fc77d4d1678ab9e12
 }
