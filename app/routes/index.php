@@ -10,9 +10,9 @@
 | you set here will be called when a 404 error is encountered
 |
 */
-// app()->set404(function() {
-// 	response()->page(ViewsPath("errors/404.html", false), 404);
-// });
+app()->set404(function() {
+	response()->page(ViewsPath("errors/404.html", false), 404);
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +24,9 @@
 | you set here will be called when a 500 error is encountered
 |
 */
-// app()->setErrorHandler(function() {
-// 	response()->page(ViewsPath("errors/500.html", false), 500);
-// });
+app()->setErrorHandler(function() {
+response()->page(ViewsPath("errors/500.html", false), 500);
+});
 
 /*
 |--------------------------------------------------------------------------
