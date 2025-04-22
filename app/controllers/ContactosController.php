@@ -148,6 +148,9 @@ public function readCSVContact()
         echo "❌ No se pudo abrir el archivo.<br>";
     }
 }
-
+public function filter($product_code){
+        
+    $resultProduct = $this->contacto->FilterProduct($product_code);
+}
 
 }

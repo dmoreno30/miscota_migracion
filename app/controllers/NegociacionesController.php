@@ -20,16 +20,76 @@ class NegociacionesController extends Controller
     {
         $this->negociacion = new Negociacion();
         $this->helpers = new Auxhelpers();
-
         $this->products = new ProductosController();
     }
     public function Create(array $deals)
     {
         $resultados = [];
-        foreach ($deals as $negociacion) {
+        foreach ($deals as $negociaciones) {
             $rowprod = [];
-            $rowprod = $this->products->filter($negociacion["idproduct"]);
-            $resultados[] = $this->negociacion->CreateDeal($deals);
+            $rowprod = $this->products->filter($negociaciones["idproduct"]);
+            $resultados[] = $this->negociacion->CreateDeal(
+                $negociaciones['id_order'],
+                $negociaciones['id_shop'],
+                $negociaciones['parent'],
+                $negociaciones['id_user'],
+                $negociaciones['ref'],
+                $negociaciones['total_price'],
+                $negociaciones['subtotal_price'],
+                $negociaciones['shipping_price'],
+                $negociaciones['financial_price'],
+                $negociaciones['total_cost_price'],
+                $negociaciones['shipping_cost_price'],
+                $negociaciones['pick_cost_price'],
+                $negociaciones['tax_price'],
+                $negociaciones['tax_perc'],
+                $negociaciones['currency_iso'],
+                $negociaciones['currency_rate'],
+                $negociaciones['date_created'],
+                $negociaciones['date_validated'],
+                $negociaciones['date_modified'],
+                $negociaciones['eta'],
+                $negociaciones['ship_expected_date'],
+                $negociaciones['id_pay'],
+                $negociaciones['pay_method'],
+                $negociaciones['id_coupon'],
+                $negociaciones['free_shipping'],
+                $negociaciones['status'],
+                $negociaciones['id_autoshipping'],
+                $negociaciones['postcode'],
+                $negociaciones['comment'],
+                $negociaciones['obs_trans'],
+                $negociaciones['obs_tecnico'],
+                $negociaciones['id_version'],
+                $negociaciones['id_affiliate'],
+                $negociaciones['points'],
+                $negociaciones['provider'],
+                $negociaciones['weight'],
+                $negociaciones['packages'],
+                $negociaciones['transport_selected'],
+                $negociaciones['transport'],
+                $negociaciones['tracking'],
+                $negociaciones['insured'],
+                $negociaciones['ballots'],
+                $negociaciones['user_agent'],
+                $negociaciones['mobile'],
+                $negociaciones['bill_num'],
+                $negociaciones['bill_year'],
+                $negociaciones['reminder_active'],
+                $negociaciones['reported_incidence'],
+                $negociaciones['priority'],
+                $negociaciones['block_stock'],
+                $negociaciones['sac_reported'],
+                $negociaciones['modification'],
+                $negociaciones['web_referer'],
+                $negociaciones['warehouse_sent'],
+                $negociaciones['wrapped'],
+                $negociaciones['ops_reported'],
+                $negociaciones['cif'],
+                $negociaciones['date_send'],
+                $negociaciones['diff_val_send'],
+                $negociaciones['rta'] 
+            );
             $this->SetProductAPI($resultados["id"], $rowprod);
         };
 
