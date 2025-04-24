@@ -26,52 +26,5 @@ class Auxhelpers
 
         return true;
     }
-    public function FormatPrint($arr)
-    {
-        $info = "<pre>";
-        $info .= print_r($arr);
-        $info .= "</pre>";
-        return $info;
-    }
-    public function log_error($message)
-    {
-        error_log("[" . date("Y-m-d H:i:s") . "] " . __FUNCTION__ . ": " . $message, 3, "error.log");
-    }
-<<<<<<< HEAD
-    /* public function FieldsValue($FIELD_ID, string $FIELD_NAME, $entity)
-=======
-    public function FieldsValue($FIELD_ID, string $FIELD_NAME, $entity)
->>>>>>> 90154bf22ff8c0ae52b03e1fc77d4d1678ab9e12
-    {
-
-        $this->Bitrix = new ContactBitrix();
-        $fielData = $this->Bitrix->dataFields($FIELD_NAME, $entity);
-        foreach ($fielData as $data) {
-            if ($data["ID"] == $FIELD_ID) {
-                return $data["VALUE"];
-            }
-        }
-<<<<<<< HEAD
-    } */
-=======
-    }
->>>>>>> 90154bf22ff8c0ae52b03e1fc77d4d1678ab9e12
-    public function extractValue($string)
-    {
-        $valor = explode('|', $string);
-
-        if (isset($valor[1])) {
-            $resultado = trim($valor[1]);
-            return $resultado;
-        }
-    }
-    public function extractMonto($monto)
-    {
-        $valor = explode('|', $monto);
-
-        if (isset($valor[0])) {
-            $resultado = trim($valor[0]);
-            return $resultado;
-        }
-    }
+   
 }

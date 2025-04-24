@@ -1,0 +1,4 @@
+Pedido,Pais,TimeStampVenta,EAN,IdProd,NombreProducto,Unidades,Marca,Categoria,id_user,Campaign,Subcategoria,TimeStamp_Compra,Segmento,Categoria_3,pet_type_number,modification
+595656,105,04/10/16 09:23 PM,4011905027692,15442,Trixie Gut rotolo con salmone Cioccolato,1,Trixie,1,MIS278294,4,12,04/10/16 09:27 PM,1,Huesos,1,2
+23569,106,04/12/16 09:23 PM,4011905069652,16852,test2,2,Trixie,1,MIS278294,5,16,04/10/16 09:27 PM,2,Huesos,2,3
+8541,107,15/10/16 09:23 PM,4011905741596,17352,test4,31,Trixie,1,MIS278294,6,19,04/10/16 09:27 PM,3,Huesos,3,4
