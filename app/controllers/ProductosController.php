@@ -51,9 +51,9 @@ class ProductosController extends Controller
    
     }
     
-    public function filter($product_code){
+    public function filterProduct($product_code){
         
-        $resultProduct = $this->producto->FilterProduct($product_code);
+        $resultProduct = $this->producto->Filter($product_code);
     }
 
  /*    public function setProduct(){

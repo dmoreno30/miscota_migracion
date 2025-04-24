@@ -14,15 +14,15 @@ class ContactosController extends Controller
         $this->helpers = new Auxhelpers();
     }
 
-    public function Create(array $contact)
+    public function CreateContact(array $contact)
     {
 
         $resultados = [];
     
         foreach ($contact as $contacts) {
-            $resultados[] = $this->contacto->CreateContact(
-                $contacts['SEX'],
+            $resultados[] = $this->contacto->Create(
                 $contacts['ID_USER'],
+                $contacts['SEX'],
                 $contacts['NAME'],
                 $contacts['SURNAMES'],
                 $contacts['BIRTHDATE'],
@@ -37,10 +37,11 @@ class ContactosController extends Controller
                 $contacts['IS_BUYER'],
                 $contacts['STATUS'],
                 $contacts['DATE_REGISTRY'],
+                $contacts['DATE_ACCESS'],
                 $contacts['DATE_DELETED'],
                 $contacts['LAST_BUY'],
-                $contacts['LAST_ORDER'],
                 $contacts['CONTACTED_BY'],
+                $contacts['LAST_ORDER'],
                 $contacts['N_ORDERS'],
                 $contacts['B2B'],
                 $contacts['AUTOLOGIN'],
@@ -61,14 +62,11 @@ class ContactosController extends Controller
                
             );
         }
-        header('Content-Type: application/json');
-        echo json_encode($resultados);
-        //$this->helpers->LogRegister($resultados);
+        
+        $this->helpers->LogRegister($resultados);
         //return $resultados;
-        return ;
+        return $resultados;
     }
-
-
 
 
 public function readCSVContact()
@@ -91,11 +89,10 @@ public function readCSVContact()
             $fila = array_combine($cabeceras, $data);
 
             $contacto = [
-                'NAME' => $fila['name'] ?? 'Prueba',
+                'ID_USER' => $fila['id_user'] ?? '0',
                 'SEX' => $fila['sex'] ?? '0',
-                'SECOND_NAME' => $fila['surnames'] ?? 'Test',
-                'LAST_NAME' => $fila['LAST_NAME'] ?? 'Apellido Test',
-                'SURNAMES' => $fila['surnames'] ?? 'Unknown',
+                'NAME' => $fila['name'] ?? 'Prueba',
+                'SURNAMES' => $fila['surnames'] ?? 'Apellido Test',
                 'BIRTHDATE' => $fila['birthdate'] ?? '1990-01-01',
                 'EMAIL' => $fila['EMAIL'] ?? 'test@gmail.com',
                 'ID_COUNTRY' => $fila['id_country'] ?? '1',
@@ -108,6 +105,7 @@ public function readCSVContact()
                 'IS_BUYER' => $fila['is_buyer'] ?? 'Y',
                 'STATUS' => $fila['status'] ?? 'OK',
                 'DATE_REGISTRY' => $fila['date_registry'] ?? '01-02-1960',
+                'DATE_ACCESS' => $fila['date_access'] ?? '01-02-1960',
                 'DATE_DELETED' => $fila['date_deleted'] ?? '01-04-1961',
                 'LAST_BUY' => $fila['last_buy'] ?? '01-03-1961',
                 'CONTACTED_BY' => $fila['contacted_by'] ?? 'Juanma',
@@ -129,17 +127,15 @@ public function readCSVContact()
                 'NEXT_BALANCE_WALLET_EXPIRY_DATE' => $fila['next_balance_wallet_expire_date'] ?? '01-08-1980',
                 'FAMILY_MEMBER' => $fila['family_member'] ?? '7',
                 'LAST_ORDER_PHONE' => $fila['last_order_phone'] ?? '9841741',
-                'ID_USER' => $fila['id_user'] ?? 'M1247'
             ];
             $contactos[] = $contacto;
 
-            $contador++;
-            echo "<pre>Contacto $contador:\n" . print_r($contacto, true) . "</pre><hr>";
-
-            // Aquí podrías también llamar a $this->CreateContact(...) si deseas insertar al vuelo
+           /*  $contador++;
+            echo "<pre>Contacto $contador:\n" . print_r($contacto, true) . "</pre><hr>"; */
         }
-
+        
         fclose($handle);
+        $this->CreateContact($contactos);
 
         echo "<br>✅ Total de contactos leídos: $contador<br>";
         //$this->Create($contactos);
@@ -148,9 +144,20 @@ public function readCSVContact()
         echo "❌ No se pudo abrir el archivo.<br>";
     }
 }
-public function filter($product_code){
+public function filterContact($ID_USER){
         
-    $resultProduct = $this->contacto->FilterProduct($product_code);
+    $Resultcontact = $this->contacto->Filter($ID_USER);
+    
+    $this->validateResult($Resultcontact);
+}
+
+public function validateResult($result){
+    if($result == null){
+        return ["error" => "No hay coincidencias"];
+    }else{
+        return $result["result"][0];
+    }
+
 }
 
 }

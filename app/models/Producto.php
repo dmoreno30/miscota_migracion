@@ -46,14 +46,17 @@ class Producto extends Model
             'PROPERTY_125' => $pet_type_number,
             'PROPERTY_126' => $modification,
         ]);
-        echo "entro a modelo";
-        echo "<pre>";
-        crest::setLog($result, $type = '');
-        print_r($result);
-        echo "</pre>";
-        return $result;
-    }
 
+        if (isset($result["result"])) {
+            return ["success" => true, "id" => $result["result"]];
+        } else {
+            return [
+                "success" => false,
+                "error" => $result["error"] ?? 'unknown',
+                "message" => $result["error_description"] ?? ''
+            ];
+    }
+    }
 
 
     public function FilterProduct($product_code)

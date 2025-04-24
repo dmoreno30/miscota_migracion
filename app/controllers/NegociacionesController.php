@@ -12,7 +12,6 @@ class NegociacionesController extends Controller
    
     public $negociacion;
     public $helpers;
-
     public $products;
     public $contact;
 
@@ -21,13 +20,15 @@ class NegociacionesController extends Controller
         $this->negociacion = new Negociacion();
         $this->helpers = new Auxhelpers();
         $this->products = new ProductosController();
+        $this->contact = new ContactosController();
     }
-    public function Create(array $deals)
+    public function CreateDeal(array $deals)
     {
         $resultados = [];
         foreach ($deals as $negociaciones) {
             $rowprod = [];
-            $rowprod = $this->products->filter($negociaciones["idproduct"]);
+            $rowprod = $this->products->filterProduct($negociaciones["idProd"]);
+            
             $resultados[] = $this->negociacion->CreateDeal(
                 $negociaciones['id_order'],
                 $negociaciones['id_shop'],
@@ -90,7 +91,7 @@ class NegociacionesController extends Controller
                 $negociaciones['diff_val_send'],
                 $negociaciones['rta'] 
             );
-            $this->SetProductAPI($resultados["id"], $rowprod);
+            $this->SetProductAPI($resultados["id"], $rowprod);  
         };
 
     }
@@ -112,14 +113,6 @@ class NegociacionesController extends Controller
             ];
         }
 
-        $result = CRest::call(
-            'crm.deal.productrows.set',
-            [
-                'id' => $iddel,
-                'rows' => $rows
-            ]
-        );
-
         return $result;
     }
     public function readCSVDeals()
@@ -133,15 +126,30 @@ class NegociacionesController extends Controller
         $deals = [];
         if (($handle = fopen($archivoCSV, 'r')) !== false) {
             $cabeceras = fgetcsv($handle); 
-    
+            
             while (($data = fgetcsv($handle)) !== false) {
                 $fila = array_combine($cabeceras, $data); 
-    
+
+                $id_user = $fila['id_user'] ?? '';
+                $resultcontact_id= $this->contact->filterContact($id_user);
+
+                // Verifica si se encontró el ID del contacto
+                if ($resultcontact_id === null) {
+                    continue; // Si no se encuentra el contacto, saltamos esta fila
+                }
+                $idProd = $fila['idProd'] ?? '';
+                $resultcontact_id= $this->contact->filterContact($id_user);
+
+                // Verifica si se encontró el ID del contacto
+                if ($resultcontact_id === null) {
+                    continue; // Si no se encuentra el contacto, saltamos esta fila
+                }
+
                 $deals[] = [
                     'id_order' => $fila['id_order'] ?? '',
                     'id_shop' => $fila['id_shop'] ?? '',
                     'parent' => $fila['parent'] ?? '',
-                    'id_user' => $fila['id_user'] ?? '',
+                    'id_user' =>  $id_user,
                     'ref' => $fila['ref'] ?? '',
                     'OPPORTUNITY' => $fila['total_price'] ?? 0,
                     'subtotal_price' => $fila['subtotal_price'] ?? 0,
